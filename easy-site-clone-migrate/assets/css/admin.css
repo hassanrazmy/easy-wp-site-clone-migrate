@@ -1,200 +1,251 @@
-/**
- * Admin Styles for Easy Site Clone & Migrate
- */
+/* Easy Site Clone & Migrate Pro - Admin Styles */
 
-.escm-admin-wrap {
+.wrap.escm-admin {
     max-width: 1200px;
 }
 
-.escm-dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+.escm-notice {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 4px solid #00a0d2;
+}
+
+.escm-tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0;
+}
+
+.escm-tab {
+    padding: 12px 24px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    border-radius: 3px 3px 0 0;
+    transition: all 0.2s;
+}
+
+.escm-tab:hover {
+    background: #e5e5e5;
+}
+
+.escm-tab.active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+    color: #0073aa;
+}
+
+.escm-tab-content {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
 }
 
 .escm-card {
-    background: #fff;
-    border: 1px solid #ccd0d4;
-    border-radius: 4px;
+    margin-bottom: 20px;
     padding: 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
 }
 
 .escm-card h2 {
     margin-top: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    font-size: 18px;
     color: #23282d;
 }
 
 .escm-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
     font-size: 16px;
-    margin-top: 20px;
     color: #23282d;
 }
 
-.escm-export-options,
-.escm-import-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.escm-export-options .button,
-.escm-import-options .button {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.escm-progress {
-    margin-top: 20px;
-    background: #f5f5f5;
-    border-radius: 4px;
+.escm-options {
+    margin: 20px 0;
     padding: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.escm-options label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.escm-options input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.escm-progress-container {
+    margin: 20px 0;
 }
 
 .escm-progress-bar {
-    height: 20px;
-    background: #0073aa;
+    width: 100%;
+    height: 30px;
+    background: #e5e5e5;
     border-radius: 3px;
-    width: 0%;
-    transition: width 0.3s ease;
-    position: relative;
     overflow: hidden;
+    margin-bottom: 10px;
 }
 
-.escm-progress-bar::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.3) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+.escm-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0073aa, #00a0d2);
+    transition: width 0.3s ease;
+    border-radius: 3px;
 }
 
 .escm-progress-text {
-    margin-top: 10px;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
     color: #555;
+    margin: 0;
 }
 
 .escm-result {
     margin-top: 20px;
     padding: 15px;
     border-radius: 4px;
+    display: none;
 }
 
 .escm-result.success {
-    background: #d4edda;
-    border: 1px solid #c3e6cb;
-    color: #155724;
+    display: block;
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
 }
 
 .escm-result.error {
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    color: #721c24;
+    display: block;
+    background: #f2dede;
+    border: 1px solid #ebccd1;
+    color: #a94442;
 }
 
-.escm-result a {
-    color: inherit;
-    text-decoration: underline;
+.escm-file-drop {
+    border: 3px dashed #ccc;
+    border-radius: 5px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    background: #fafafa;
 }
 
-.escm-import-form {
-    margin-top: 15px;
+.escm-file-drop:hover,
+.escm-file-drop.dragover {
+    border-color: #0073aa;
+    background: #f0f8ff;
 }
 
-#escm-import-upload-form {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
+.escm-file-drop input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 }
 
-#escm-import-file {
-    flex: 1;
-    min-width: 200px;
-}
-
-.escm-info-section table {
-    margin-top: 15px;
-}
-
-.escm-info-section th {
-    width: 200px;
-    font-weight: 600;
-}
-
-.escm-help-section ol,
-.escm-help-section ul {
-    margin-left: 20px;
-}
-
-.escm-help-section li {
-    margin-bottom: 8px;
-    line-height: 1.5;
+.escm-file-drop p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
 }
 
 .escm-warning {
-    background: #fff3cd;
-    border: 1px solid #ffc107;
-    border-radius: 4px;
-    padding: 15px;
-    margin-top: 20px;
+    color: #d63638;
+    font-weight: 600;
+    padding: 10px;
+    background: #ffebeb;
+    border-left: 4px solid #d63638;
+    margin-bottom: 20px;
 }
 
-.escm-warning strong {
-    display: block;
-    margin-bottom: 10px;
-    color: #856404;
+.escm-info-card {
+    background: #f0f8ff;
+    border-color: #b8daff;
 }
 
-.escm-warning ul {
+.escm-info-card ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
-    padding-left: 20px;
 }
 
-.escm-warning li {
-    color: #856404;
+.escm-info-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e1e8ed;
 }
 
-.dashicons {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
+.escm-info-card li:last-child {
+    border-bottom: none;
 }
 
-/* Responsive */
-@media screen and (max-width: 782px) {
-    .escm-dashboard {
-        grid-template-columns: 1fr;
-    }
-    
-    .escm-export-options,
-    .escm-import-options {
+.escm-warning-card {
+    background: #fff8e5;
+    border-color: #ffc83d;
+}
+
+.escm-log-viewer {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 15px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.escm-log-viewer p {
+    margin: 0;
+    color: #888;
+}
+
+.button-large {
+    padding: 10px 20px;
+    font-size: 14px;
+    height: auto;
+}
+
+#escm-import-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 782px) {
+    .escm-tabs {
         flex-direction: column;
     }
     
-    .escm-export-options .button,
-    .escm-import-options .button {
-        width: 100%;
-        justify-content: center;
+    .escm-tab {
+        border-radius: 3px;
+        margin-bottom: 5px;
+    }
+    
+    .escm-tab.active {
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 5px;
     }
 }

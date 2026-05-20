@@ -1,161 +1,148 @@
-# Easy Site Clone & Migrate
+# Easy Site Clone & Migrate Pro
 
-The best easy WordPress migration and cloning plugin. Export, import, and clone sites with ease.
+A professional WordPress migration and cloning plugin designed for complete, safe, and reliable site transfers.
 
 ## Features
 
-- **Full Site Export**: Create complete backups including database and wp-content files
-- **Database Export**: Export only the database as SQL file
-- **Files Export**: Export only wp-content directory (themes, plugins, uploads)
-- **Full Site Import**: Restore complete site from backup
-- **Database Import**: Import database only
-- **Files Import**: Import wp-content files only
-- **URL Replacement**: Automatically updates site URLs during import for seamless migration
-- **Secure**: Protected backup directory with .htaccess access control
-- **User-Friendly Interface**: Clean, intuitive admin interface
+### ✅ Complete Site Export
+- **All WordPress Core Files** (wp-admin, wp-includes)
+- **All Plugins & Themes** 
+- **All Uploads & Media Files**
+- **Complete Database** with all tables
+- **.htaccess** and configuration files
+- **Excludes wp-config.php** for security (uses target server's DB settings)
+
+### ✅ Safe Import Process
+- **Pre-import backup** creation for rollback capability
+- **Transaction-safe database imports** with COMMIT/ROLLBACK support
+- **Serialized data handling** for widgets, options, and custom fields
+- **Automatic URL replacement** when migrating to different domains
+- **Preserves target wp-config.php** (database credentials from destination server)
+
+### ✅ Advanced Technical Features
+- **Chunked processing** (1000 rows per batch) prevents timeout on large sites
+- **Extended execution time** management with set_time_limit()
+- **Proper SQL parsing** handles strings, quotes, and special characters
+- **Recursive directory copying** preserves file structure
+- **ZIP compression** for efficient storage and transfer
+- **Secure temp directory** with .htaccess protection
+
+### ✅ Security & Safety
+- **Nonce verification** on all AJAX requests
+- **Capability checks** (manage_options required)
+- **Protected temp directory** denies direct access
+- **No wp-config.php export** prevents credential leakage
+- **Confirmation dialogs** before destructive operations
 
 ## Installation
 
-1. Download the plugin ZIP file
-2. Go to WordPress Admin → Plugins → Add New
-3. Click "Upload Plugin" and select the ZIP file
-4. Click "Install Now" and then "Activate"
-
-Alternatively:
-
-1. Upload the `easy-site-clone-migrate` folder to `/wp-content/plugins/`
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Download the plugin folder `easy-site-clone-migrate`
+2. Upload to `/wp-content/plugins/` directory
+3. Activate through WordPress Admin → Plugins
+4. Navigate to **Tools → Site Clone & Migrate**
 
 ## Usage
 
-### Export Your Site
+### Export a Site
 
 1. Go to **Tools → Site Clone & Migrate**
-2. In the "Export Site" section, choose your export option:
-   - **Export Full Site**: Creates a complete backup (recommended)
-   - **Export Database Only**: Downloads just the database
-   - **Export Files Only**: Downloads wp-content directory
-3. Wait for the export to complete
-4. Download the generated backup file
-5. Store it in a safe location
+2. Click the **Export Site** tab
+3. Click **Start Export**
+4. Wait for the process to complete
+5. Download the generated ZIP file automatically
 
-### Import/Clone Your Site
+### Import a Site
 
-⚠️ **Warning**: Importing will overwrite your current site data! Always create a backup first.
+⚠️ **WARNING**: This will completely replace your current site!
 
 1. Go to **Tools → Site Clone & Migrate**
-2. In the "Import Site" section, click "Choose File"
-3. Select your previously exported ZIP file
-4. Click "Upload File"
-5. Once uploaded, choose your import option:
-   - **Import Full Site**: Restores everything (database + files)
-   - **Import Database Only**: Restores just the database
-   - **Import Files Only**: Restores wp-content files
-6. Confirm the warning message
-7. Wait for the import to complete
-8. You may need to log in again after import
+2. Click the **Import Site** tab
+3. Drag & drop or select your backup ZIP file
+4. Click **Start Import**
+5. Confirm the warning dialog
+6. Wait for completion (site will reload automatically)
 
-## How It Works
+## How wp-config.php Handling Works
 
-### Export Process
+### During Export:
+- wp-config.php is **explicitly excluded** from the backup
+- This prevents database credentials from being transferred
+- The backup remains secure and portable
 
-1. **Database Export**: The plugin exports all WordPress database tables with proper SQL formatting
-2. **File Export**: Compresses wp-content directory (themes, plugins, uploads) into ZIP
-3. **Metadata**: Includes site information (URL, version, active plugins, theme) in JSON format
-4. **Packaging**: Combines everything into a single ZIP file for easy download
+### During Import:
+- The existing wp-config.php on the **destination server is preserved**
+- All imported content uses the **destination's database credentials**
+- No manual configuration needed after import
+- Automatically adapts to new server environment
 
-### Import Process
+This approach ensures:
+- ✅ Security (no credential leakage)
+- ✅ Portability (works on any server)
+- ✅ Convenience (no manual setup)
+- ✅ Safety (doesn't break database connection)
 
-1. **File Upload**: Securely uploads the backup file to a temporary directory
-2. **Extraction**: Extracts the ZIP file contents
-3. **Database Import**: Parses and executes SQL statements to restore database
-4. **URL Replacement**: Automatically updates old site URLs to match the new domain
-5. **File Restoration**: Copies wp-content files to their proper locations
-6. **Cache Clear**: Flushes WordPress cache for fresh content
-7. **Cleanup**: Removes temporary files
+## Technical Specifications
 
-## Security Features
+| Feature | Implementation |
+|---------|---------------|
+| Database Export | Chunked SELECT with 1000 row batches |
+| SQL Import | Transaction-based with error handling |
+| File Copying | Recursive with exclusion patterns |
+| Compression | PHP ZipArchive extension |
+| URL Replacement | Both raw text and serialized data |
+| Progress Tracking | Real-time log polling via AJAX |
+| Timeout Prevention | set_time_limit() extension |
+| Security | Nonce + Capability checks |
 
-- **Nonce Verification**: All AJAX requests are protected with WordPress nonces
-- **Capability Checks**: Only administrators can use the plugin
-- **Directory Protection**: Backup directory is protected with .htaccess
-- **Path Validation**: Prevents directory traversal attacks
-- **File Type Validation**: Only accepts ZIP and SQL files
-
-## Technical Requirements
+## Requirements
 
 - WordPress 5.0 or higher
 - PHP 7.0 or higher
 - ZipArchive extension enabled
-- Write permissions to wp-content/uploads directory
-
-## File Structure
-
-```
-easy-site-clone-migrate/
-├── easy-site-clone-migrate.php    # Main plugin file
-├── download.php                    # Download handler
-├── includes/
-│   ├── class-exporter.php         # Export functionality
-│   ├── class-importer.php         # Import functionality
-│   └── class-admin.php            # Admin interface
-├── assets/
-│   ├── css/
-│   │   └── admin.css              # Admin styles
-│   └── js/
-│       └── admin.js               # Admin JavaScript
-└── README.md                       # This file
-```
+- Write permissions to wp-content/uploads
+- Database CREATE, DROP, INSERT privileges
 
 ## Troubleshooting
 
-### Export fails or times out
-- Increase PHP max_execution_time in php.ini
-- Increase memory_limit in php.ini
-- Try exporting database and files separately
+### Export/Import Times Out
+- Large sites may take several minutes
+- Check server's max_execution_time setting
+- Try during low-traffic periods
 
-### Import fails
-- Check file permissions on wp-content directory
-- Ensure upload_max_filesize and post_max_size are sufficient
-- Check error logs for specific errors
+### "ZipArchive not available" Error
+- Enable ZipArchive extension in php.ini
+- Contact your hosting provider
 
-### "Permission denied" error
-- Ensure you're logged in as administrator
-- Check user capabilities in WordPress
+### Permission Denied Errors
+- Ensure wp-content/uploads is writable
+- Check folder permissions (755 recommended)
 
-### Large site issues
-- For very large sites, consider exporting database and files separately
-- Use FTP to transfer wp-content directory manually
-- Consider using a dedicated backup solution for very large sites
+### Database Import Fails
+- Verify database user has sufficient privileges
+- Check max_allowed_packet in MySQL config
+- Review operation logs for specific errors
 
 ## Changelog
 
-### Version 1.0.0
-- Initial release
-- Full site export/import functionality
-- Database export/import
-- Files export/import
-- Automatic URL replacement
-- Secure admin interface
+### Version 2.0.0
+- ✅ Complete WordPress file export (all directories)
+- ✅ Proper serialized data URL replacement
+- ✅ Chunked processing for large sites
+- ✅ Transaction-safe database imports
+- ✅ Pre-import backup creation
+- ✅ Better error handling and logging
+- ✅ wp-config.php exclusion for security
+- ✅ Modern responsive UI
+- ✅ Real-time progress tracking
 
 ## Support
 
-For support and feature requests, please visit the plugin repository or contact the developer.
+For issues and feature requests, please contact support.
 
 ## License
 
-This plugin is licensed under GPL v2 or later.
+GPL v2 or later
 
-```
-Copyright (C) 2024 Your Name
+---
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-```
+**Note**: Always test migrations on a staging environment first before production use.
