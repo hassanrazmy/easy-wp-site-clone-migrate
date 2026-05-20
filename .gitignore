@@ -1,9 +1,13 @@
 ```
-# WordPress specific
-wp-content/
-wp-config.php
-wp-includes/
-wp-admin/
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+.env.*
 
 # Dependencies
 vendor/
@@ -15,21 +19,13 @@ build/
 *.min.js
 *.min.css
 
-# Logs and temp files
-*.log
-*.tmp
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Editors
+# Editor/IDE
 .vscode/
 .idea/
 *.swp
+*.swo
 
-# OS generated files
+# System
 .DS_Store
 Thumbs.db
 
